@@ -7,12 +7,20 @@ function ThemeProvider({
   children,
   ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
+  // React 19 warns when next-themes re-renders its inline <script> on the client.
+  // SSR keeps the default script; client re-renders use a non-executable type.
+  const scriptProps =
+    typeof window === "undefined"
+      ? undefined
+      : ({ type: "application/json" } as const)
+
   return (
     <NextThemesProvider
       attribute="class"
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
+      scriptProps={scriptProps}
       {...props}
     >
       <ThemeHotkey />
