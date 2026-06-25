@@ -1,5 +1,5 @@
 "use client";
-import Logo from "@/assets/logo/logo";
+import Logo from '@/assets/logo/Logo';
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
@@ -84,8 +84,8 @@ const Navbar = () => {
                 : "border-transparent bg-transparent",
             )}
           >
-            <Link href="/">
-              <Logo />
+            <Link href="/" className="flex items-center">
+              <Logo className="h-9 w-9" />
             </Link>
             <div>
               <NavigationMenu className="max-lg:hidden bg-muted p-0.5 rounded-full">

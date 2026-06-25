@@ -1,0 +1,12 @@
+{
+  "git.autorefresh": true,
+  "git.autofetch": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.next/**": true
+  }
+}
