@@ -1,6 +1,11 @@
+'use client'
+
 import type { ReactNode } from 'react'
 
 import { Badge } from '@/components/ui/badge'
+import V1_1_0_Content from './content/v1-1-0'
+import V1_2_0_Content from './content/v1-2-0'
+import V1_3_0_Content from './content/v1-3-0'
 
 export interface Release {
   version: string
@@ -8,11 +13,17 @@ export interface Release {
   content: ReactNode
 }
 
+export const defaultTimelineReleases: Release[] = [
+  { version: 'v1.3.0', date: 'July 7, 2025', content: <V1_3_0_Content /> },
+  { version: 'v1.2.0', date: 'June 11, 2025', content: <V1_2_0_Content /> },
+  { version: 'v1.1.0', date: 'May 6, 2025', content: <V1_1_0_Content /> },
+]
+
 interface ChangelogContentProps {
-  releases: Release[]
+  releases?: Release[]
 }
 
-const ChangelogContent = ({ releases }: ChangelogContentProps) => {
+const ChangelogContent = ({ releases = defaultTimelineReleases }: ChangelogContentProps) => {
   return (
     <>
       <div className='mb-8 space-y-4 text-center md:mb-10 lg:mb-18'>

@@ -5,6 +5,7 @@ import { useScroll, useTransform, motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { HeroSection } from './HeroSection';
 import { siGithub, siInstagram } from 'simple-icons';
+import ChangelogContent from '../shadcn-studio/blocks/timeline-component-05/timeline-component-05';
 
 const Section1 = ({ scrollYProgress }) => {
     const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
@@ -41,10 +42,10 @@ const Section2 = ({ scrollYProgress }) => {
     return (
         <motion.section
         style={{ scale, rotate }}
-        className='relative h-screen bg-linear-to-t to-[#1a1919] from-[#06060e] text-white '
+        className='relative h-fit bg-linear-to-t to-[#1a1919] from-[#06060e] text-white '
         >
         <div className='absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-size-[54px_54px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]'></div>
-        <article className='container mx-auto relative z-10 '>
+        <article className='container mx-auto relative z-10 flex flex-col gap-20'>
             <h1 className='text-6xl leading-[100%] py-10 font-semibold  tracking-tight '>
             Images That doesn't Make any sense <br /> but still in this section
             </h1>
@@ -70,6 +71,7 @@ const Section2 = ({ scrollYProgress }) => {
                 className=' object-cover w-full rounded-md h-full'
             />
             </div>
+            <ChangelogContent />
         </article>
         </motion.section>
     );
@@ -84,15 +86,9 @@ export default function Scroll() {
 
     return (
         <>
-            <main ref={container} className='relative h-[200vh] bg-black  '>
+            <main ref={container} className='relative h-[200vh] bg-black'>
                 <Section1 scrollYProgress={scrollYProgress} />
                 <Section2 scrollYProgress={scrollYProgress} />
-                <footer className='group bg-[#06060e] '>
-                <h1 className='text-[16vw] translate-y-20 leading-[100%] uppercase font-semibold text-center bg-linear-to-r from-neutral-400 to-neutral-800 bg-clip-text text-transparent transition-all ease-linear'>
-                    ui-layout
-                </h1>
-                <div className='bg-black text-white h-40 relative z-10 grid place-content-center text-2xl rounded-tr-full rounded-tl-full'></div>
-                </footer>
             </main>
         </>
     );

@@ -133,14 +133,6 @@ export const HeroSection = ({
                         </a>
                     ))}
                 </motion.div>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 1.3 }}
-                    className="text-sm font-medium text-foreground/80"
-                >
-                    {locationText}
-                </motion.div>
             </footer>
         </div>
     );
