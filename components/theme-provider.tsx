@@ -3,6 +3,8 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 
+import { setThemeWithCircleTransition } from "@/lib/theme-transition"
+
 function ThemeProvider({
   children,
   ...props
@@ -19,7 +21,7 @@ function ThemeProvider({
       attribute="class"
       defaultTheme="system"
       enableSystem
-      disableTransitionOnChange
+      disableTransitionOnChange={false}
       scriptProps={scriptProps}
       {...props}
     >
@@ -63,7 +65,11 @@ function ThemeHotkey() {
         return
       }
 
-      setTheme(resolvedTheme === "dark" ? "light" : "dark")
+      const nextTheme = resolvedTheme === "dark" ? "light" : "dark"
+      setThemeWithCircleTransition(() => setTheme(nextTheme), {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+      })
     }
 
     window.addEventListener("keydown", onKeyDown)

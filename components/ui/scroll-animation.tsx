@@ -16,7 +16,6 @@ const Section1 = ({ scrollYProgress }) => {
         className='sticky  font-semibold top-0 h-screen bg-linear-to-t to-[#dadada] from-[#ebebeb] flex flex-col items-center justify-center text-black'
         >
             <HeroSection
-                logoText="adf.creations"
                 mainText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultrices, justo vel tempus."
                 readMoreLink="#about"
                 imageSrc="https://ik.imagekit.io/fpxbgsota/image%2013.png?updatedAt=1753531863793"
