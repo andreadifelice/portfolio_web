@@ -1,9 +1,18 @@
 "use client";
 import Logo from '@/assets/logo/Logo';
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
-import Switch from '@/components/ui/theme-switcher';
+import Switch, { navbarControlClassName } from '@/components/ui/theme-switcher';
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, TextAlignJustify } from "lucide-react";
 import Link from "next/link";
@@ -39,8 +48,8 @@ const navigationData: NavigationSection[] = [
     href: "/",
   },
   {
-    title: "Chi sono",
-    href: "/contatti",
+    title: "Progetti",
+    href: "/progetti",
   },
 ];
 
@@ -49,6 +58,7 @@ const Navbar = () => {
   const isHome = pathname === "/";
   const [sticky, setSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const handleScroll = useCallback(() => {
     setSticky(window.scrollY >= 50);
   }, []);
@@ -58,7 +68,9 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    setMounted(true);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -73,18 +85,22 @@ const Navbar = () => {
         <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6">
           <nav
             className={cn(
-              "flex h-fit w-full items-center justify-between gap-3.5 transition-all duration-500 lg:gap-6",
+              "mx-auto flex h-fit w-full max-w-full items-center justify-between gap-3.5 rounded-full border p-2.5 lg:gap-6",
+              "transition-[max-width,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-in-out",
               sticky
-                ? "rounded-full border border-border/40 bg-background/60 p-2.5 shadow-2xl shadow-primary/5 backdrop-blur-lg"
-                : "border-transparent bg-transparent",
+                ? "max-w-5xl border-border/40 bg-background/70 shadow-lg shadow-black/5 backdrop-blur-xl"
+                : "border-transparent bg-transparent shadow-none backdrop-blur-none",
             )}
           >
-            <Link href="/" className="flex items-center p-3 rounded-full justify-center bg-secondary">
+            <Link
+              href="/"
+              className={cn(navbarControlClassName)}
+            >
               <Logo className="text-primary h-9 w-9" />
             </Link>
             <div>
-              <NavigationMenu className="max-lg:hidden bg-muted p-0.5 rounded-full">
-                <NavigationMenuList className="flex gap-0">
+              <NavigationMenu className="max-lg:hidden p-2.5 rounded-full bg-background">
+                <NavigationMenuList className="flex gap-2">
                   {navigationData.map((navItem) => {
                     const isActive = isNavLinkActive(pathname, navItem.href);
 
@@ -104,41 +120,66 @@ const Navbar = () => {
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
-            <div>
-              <Switch />
-            </div>
+            <Switch />
 
             <div className="lg:hidden">
-              <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-                <DropdownMenuTrigger className="rounded-full bg-background border border-border p-2 outline-none flex items-center justify-center cursor-pointer transition-colors">
-                  <TextAlignJustify size={20} />
-                  <span className="sr-only">Menu</span>
-                </DropdownMenuTrigger>
+              {mounted ? (
+                <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
+                  <DrawerTrigger asChild>
+                    <button
+                      type="button"
+                      className="flex cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 outline-none transition-colors"
+                    >
+                      <TextAlignJustify size={20} />
+                      <span className="sr-only">Menu</span>
+                    </button>
+                  </DrawerTrigger>
 
-                <DropdownMenuContent
-                  align="end"
-                  className="w-56 mt-2"
+                  <DrawerContent>
+                    <DrawerHeader>
+                      <DrawerTitle>Menu</DrawerTitle>
+                      <DrawerDescription>Naviga tra le sezioni del sito.</DrawerDescription>
+                    </DrawerHeader>
+
+                    <div className="overflow-y-auto px-4">
+                      {navigationData.map((item) => {
+                        const isActive = isNavLinkActive(pathname, item.href);
+
+                        return (
+                          <DrawerClose asChild key={item.title}>
+                            <Link
+                              href={item.href}
+                              className={cn(
+                                "mb-4 block rounded-lg px-3 py-2 text-sm font-medium leading-normal",
+                                isActive
+                                  ? "bg-accent text-accent-foreground"
+                                  : "text-foreground hover:bg-accent/50",
+                              )}
+                              aria-current={isActive ? "page" : undefined}
+                            >
+                              {item.title}
+                            </Link>
+                          </DrawerClose>
+                        );
+                      })}
+                    </div>
+
+                    <DrawerFooter>
+                      <DrawerClose asChild>
+                        <Button variant="outline">Chiudi</Button>
+                      </DrawerClose>
+                    </DrawerFooter>
+                  </DrawerContent>
+                </Drawer>
+              ) : (
+                <button
+                  type="button"
+                  className="flex cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 outline-none transition-colors"
+                  aria-label="Menu"
                 >
-                  {navigationData.map((item) => {
-                    const isActive = isNavLinkActive(pathname, item.href);
-
-                    return (
-                      <DropdownMenuItem
-                        key={item.title}
-                        className={cn(isActive && "bg-accent text-accent-foreground")}
-                      >
-                        <Link
-                          href={item.href}
-                          className="w-full cursor-pointer text-sm font-medium"
-                          aria-current={isActive ? "page" : undefined}
-                        >
-                          {item.title}
-                        </Link>
-                      </DropdownMenuItem>
-                    );
-                  })}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                  <TextAlignJustify size={20} />
+                </button>
+              )}
             </div>
           </nav>
         </div>

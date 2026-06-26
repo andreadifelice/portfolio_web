@@ -3,9 +3,7 @@
 import type { ReactNode } from 'react'
 
 import { Badge } from '@/components/ui/badge'
-import V1_1_0_Content from './content/v1-1-0'
-import V1_2_0_Content from './content/v1-2-0'
-import V1_3_0_Content from './content/v1-3-0'
+import HowItWorks from '@/components/ui/how-it-works'
 
 export interface Release {
   version: string
@@ -14,9 +12,9 @@ export interface Release {
 }
 
 export const defaultTimelineReleases: Release[] = [
-  { version: 'v1.3.0', date: 'July 7, 2025', content: <V1_3_0_Content /> },
-  { version: 'v1.2.0', date: 'June 11, 2025', content: <V1_2_0_Content /> },
-  { version: 'v1.1.0', date: 'May 6, 2025', content: <V1_1_0_Content /> },
+  { version: 'v1.3.0', date: 'July 7, 2025', content: <HowItWorks/> },
+  { version: 'v1.2.0', date: 'June 11, 2025', content:<HowItWorks/> },
+  { version: 'v1.1.0', date: 'May 6, 2025', content: <HowItWorks /> },
 ]
 
 interface ChangelogContentProps {
@@ -26,9 +24,9 @@ interface ChangelogContentProps {
 const ChangelogContent = ({ releases = defaultTimelineReleases }: ChangelogContentProps) => {
   return (
     <>
-      <div className='mb-8 space-y-4 text-center md:mb-10 lg:mb-18'>
-        <h2 className='text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl'>Changelog Origin Update</h2>
-        <p className='text-muted-foreground text-xl'>
+      <div className='mb-8 space-y-3 text-start md:mb-10 lg:mb-18'>
+        <h2 className='text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl'>Il mio percorso formativo</h2>
+        <p className='text-muted-foreground text-base md:text-lg'>
           Discover what’s been added, changed, fixed, improved, and updated in this release.
         </p>
       </div>
