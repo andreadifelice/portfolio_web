@@ -27,6 +27,7 @@
     "@ss-blocks": "https://shadcnstudio.com/r/blocks/{style}/{name}.json",
     "@ss-themes": "https://shadcnstudio.com/r/themes/{name}.json",
     "@shadcn-space": "https://shadcnspace.com/r/{name}.json",
-    "@iconiq": "https://iconiqui.com/r/{name}.json"
+    "@iconiq": "https://iconiqui.com/r/{name}.json",
+    "@magicui": "https://magicui.design/r/{name}"
   }
 }
