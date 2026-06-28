@@ -1,98 +1,111 @@
+import placeholder from '@/assets/placeholder.png';
+import html from '@/assets/html.svg';
+import Image, { type StaticImageData } from "next/image";
 import React from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import placeholder from '@/assets/placeholder.png'
-import Image from "next/image";
 
-interface Step {
-  number: number;
+export interface Step {
+  icon: StaticImageData | string;
   title: string;
   description: string;
   color?: string;
 }
 
-interface OnboardingStepsProps {
-  badgeText?: string;
+export interface OnboardingStepsProps {
   mainHeadline?: string;
+  mainDescription?: string;
   imgUrl?: string;
   steps?: Step[];
-  ctaText?: string;
   showcaseTitle?: string;
   showcaseValue?: string;
   showcaseSubtitle?: string;
   showcasePercentage?: number;
   showcaseIcon?: React.ReactNode;
-  onCtaClick?: () => void;
 }
 
-export default function HowItWorks({
-  badgeText = "How It Works",
-  mainHeadline = "Three Easy Steps",
-  steps = [
+const defaultHowItWorksProps: Required<
+  Pick<OnboardingStepsProps, "mainHeadline" | "mainDescription" | "steps">
+> = {
+  mainHeadline: "Three Easy Steps",
+  mainDescription: "Description",
+  steps: [
     {
-      number: 1,
+      icon: placeholder,
       title: "Connect your data",
       description:
         "Lorem ipsum dolor amet adipiscing or elit. Volutpat tempor mentum.",
     },
     {
-      number: 2,
+      icon: placeholder,
       title: "Customize your app",
       description:
         "Lorem ipsum dolor sit amet sectetur adipiscing elit. Volutpat tempor style & condimentum.",
     },
     {
-      number: 3,
+      icon: placeholder,
       title: "Share with a link",
       description:
         "Lorem ipsum dolor amet adipiscing Volutpat tempor with anyone.",
     },
   ],
-  ctaText = "Start Today",
-  onCtaClick = () => {},
-}: OnboardingStepsProps) {
+};
+
+export const howItWorksByYear: Record<string, OnboardingStepsProps> = {
+  "2023/2024": {
+    mainHeadline: "Titolo 2023/2024",
+    mainDescription: "Descrizione del percorso",
+    steps: [
+      {
+        icon: html,
+        title: "HTML",
+        description: "Descrizione di HTML 5",
+      },
+    ],
+  },
+  "2024/2025": {
+    mainHeadline: "Titolo 2024/2025",
+    mainDescription: "Descrizione del percorso",
+    steps: [],
+  },
+  "2025": {
+    mainHeadline: "Titolo 2025",
+    mainDescription: "Descrizione del percorso",
+    steps: [],
+  },
+  Oggi: {
+    mainHeadline: "Titolo oggi",
+    mainDescription: "Descrizione del percorso",
+    steps: [],
+  }
+};
+
+export default function HowItWorks(props: OnboardingStepsProps = {}) {
+  const { mainHeadline, mainDescription, steps } = {
+    ...defaultHowItWorksProps,
+    ...props,
+  };
   return (
     <div className="flex flex-col lg:flex-row gap-8 w-full mx-auto">
       <div className="flex-1">
-        <Badge variant={"secondary"}>{badgeText}</Badge>
-        <h2 className="mt-6 mb-8 text-2xl font-semibold tracking-tight md:text-3xl">{mainHeadline}</h2>
+        <div className="flex flex-col gap-2.5">
+          <p className="text-2xl font-semibold tracking-tight md:text-3xl">{mainHeadline}</p>
+          <p className="text-primary/50">{mainDescription}</p>
+        </div>
 
         <div className="space-y-8 mt-14 mb-8">
           {steps.map((step, index) => (
             <div key={index} className="flex gap-4 items-start mt-8">
               <div
-                className={` rounded-full border  w-7 h-7 p-6 flex justify-center items-center  
-                    text-primary
-                  font-semibold text-xl   text-center`}
+                className={'size-15'}
               >
-                {step.number}
+                <Image src={step.icon} alt='immagine-percorso' className='object-cover object-center aspect-square rounded-full bg-primary p-1'/>
               </div>
               <div>
-                <h3 className="text-base font-medium md:text-lg">{step.title}</h3>
-                <p className="text-gray-500 mt-1">{step.description}</p>
+                <p className="text-base font-medium md:text-lg">{step.title}</p>
+                <p className="text-primary/50 mt-1">{step.description}</p>
               </div>
             </div>
           ))}
         </div>
-
-        <div className="w-full ">
-          <Button
-            onClick={onCtaClick}
-            className="mt-8  h-12  px-10 max-lg:mx-6   py-3 rounded-lg font-medium"
-          >
-            {ctaText}
-          </Button>
-        </div>
-      </div>
-
-      <div className="flex-1 flex items-center justify-center max-lg:hidden">
-        <Image
-          src={placeholder}
-          alt={`${placeholder.toString()}`}
-          className="h-full rounded-md w-full object-cover object-center"
-          width={600}
-          height={400}
-        />
       </div>
     </div>
   );

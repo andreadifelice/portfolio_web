@@ -3,18 +3,18 @@
 import type { ReactNode } from 'react'
 
 import { Badge } from '@/components/ui/badge'
-import HowItWorks from '@/components/ui/how-it-works'
+import HowItWorks, { howItWorksByYear } from '@/components/ui/how-it-works'
 
 export interface Release {
-  version: string
-  date: string
+  year: string
   content: ReactNode
 }
 
 export const defaultTimelineReleases: Release[] = [
-  { version: 'v1.3.0', date: 'July 7, 2025', content: <HowItWorks/> },
-  { version: 'v1.2.0', date: 'June 11, 2025', content:<HowItWorks/> },
-  { version: 'v1.1.0', date: 'May 6, 2025', content: <HowItWorks /> },
+  { year: '2023/2024', content: <HowItWorks {...howItWorksByYear['2023/2024']} /> },
+  { year: '2024/2025', content: <HowItWorks {...howItWorksByYear['2024/2025']} /> },
+  { year: '2025', content: <HowItWorks {...howItWorksByYear['2025']} /> },
+  { year: 'Oggi', content: <HowItWorks {...howItWorksByYear.Oggi} /> },
 ]
 
 interface ChangelogContentProps {
@@ -31,10 +31,9 @@ const ChangelogContent = ({ releases = defaultTimelineReleases }: ChangelogConte
         </p>
       </div>
       {releases.map((release, index) => (
-        <div key={release.version} id={String(index + 1)} className='relative flex scroll-mt-18 justify-end gap-2'>
+        <div key={release.year} id={String(index + 1)} className='relative flex scroll-mt-18 justify-end gap-2'>
           <div className='sticky top-19 flex w-36 flex-col items-end gap-2 self-start pb-4 max-md:hidden'>
-            <Badge className='flex size-6 w-auto justify-end rounded-sm text-sm font-medium'>{release.version}</Badge>
-            <div className='text-muted-foreground text-right text-sm font-medium'>{release.date}</div>
+            <Badge className='flex size-6 w-auto justify-end rounded-sm text-sm font-medium'>{release.year}</Badge>
           </div>
           <div className='flex flex-col items-center'>
             <div className='sticky top-19 flex size-6 items-center justify-center max-sm:top-5'>
@@ -46,8 +45,7 @@ const ChangelogContent = ({ releases = defaultTimelineReleases }: ChangelogConte
           </div>
           <div className='flex flex-1 flex-col gap-4 pb-11 pl-3 md:pl-6 lg:pl-9'>
             <div className='flex flex-col gap-2 md:hidden'>
-              <Badge className='flex rounded-sm font-medium'>{release.version}</Badge>
-              <div className='font-medium'>{release.date}</div>
+              <Badge className='flex rounded-sm font-medium'>{release.year}</Badge>
             </div>
             {release.content}
           </div>

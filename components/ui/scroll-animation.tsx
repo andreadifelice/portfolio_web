@@ -10,6 +10,9 @@ import { useIsMobile } from '@/lib/use-mobile';
 import { MagicCard } from './magic-card';
 import Link from 'next/link';
 import { Button } from './button';
+import Image from 'next/image';
+import placeholder from '@/assets/placeholder.png'
+
 
 const heroProps = {
     mainText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultrices, justo vel tempus.",
@@ -30,30 +33,39 @@ const projectProps = [
     {
         title: 'Progetto 1',
         description: 'Descrizione progetto 1',
-        link: '/progetti'
+        link: '/progetti',
+        img: placeholder
     },
     {
         title: 'Progetto 2',
         description: 'Descrizione progetto 2',
-        link: '/progetti'
+        link: '/progetti',
+        img: placeholder
     },
 ]
 
 function ProjectsSection() {
     return (
-        <div className='container relative z-10 mx-auto flex flex-col gap-20 p-8 pt-25'>
+        <div className='container relative z-10 mx-auto flex flex-col gap-20 p-8 pt-25 md:pt-50'>
         <div className='flex flex-col gap-5'>
             <p className='text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl'>
                 I miei progetti
             </p>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-2.5'>
                 {projectProps.map((project, i) => (
-                    <Link href={project.link}>
+                    <Link href={project.link} key={i} className='group transition-all'>
                         <MagicCard className='rounded-lg p-4'>
-                            <div className='flex flex-col gap-2'>
-                                <p>{project.title}</p>
-                                <span>{project.description}</span>
-                                <Button>Guarda su github</Button>
+                            <div className='flex flex-col gap-4'>
+                                <div className='flex gap-4'>
+                                    <Image src={project.img} className='rounded-full object-cover object-center size-20' alt='logo progetto'/>
+                                    <div>
+                                        <p>{project.title}</p>
+                                        <span>{project.description}</span>
+                                    </div>
+                                </div>
+                                <Button className='pointer-events-none group-hover:bg-background group-hover:text-primary group-hover:border-border'>
+                                    Guarda su github
+                                </Button>
                             </div>
                         </MagicCard>
                     </Link>
@@ -74,7 +86,7 @@ const Section1 = ({ scrollYProgress }) => {
         style={{ scale, rotate }}
         className='sticky top-0 flex h-screen flex-col items-center justify-center bg-linear-to-t from-[#ebebeb] to-[#dadada] font-semibold text-black'
         >
-        <HeroSection {...heroProps} animated />
+            <HeroSection {...heroProps} animated />
         </motion.section>
     );
 };
