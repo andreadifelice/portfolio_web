@@ -5,16 +5,13 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
+  DrawerTrigger
 } from "@/components/ui/drawer";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import Switch, { navbarControlClassName } from '@/components/ui/theme-switcher';
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, TextAlignJustify } from "lucide-react";
+import { TextAlignJustify, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -53,12 +50,14 @@ const navigationData: NavigationSection[] = [
   },
 ];
 
+const menuButtonClassName =
+  "flex cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 outline-none transition-colors";
+
 const Navbar = () => {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [sticky, setSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const handleScroll = useCallback(() => {
     setSticky(window.scrollY >= 50);
   }, []);
@@ -68,7 +67,6 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    setMounted(true);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleResize);
@@ -120,66 +118,51 @@ const Navbar = () => {
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
-            <Switch />
+            <Switch className='hidden md:flex'/>
 
             <div className="lg:hidden">
-              {mounted ? (
-                <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
-                  <DrawerTrigger asChild>
-                    <button
-                      type="button"
-                      className="flex cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 outline-none transition-colors"
-                    >
-                      <TextAlignJustify size={20} />
-                      <span className="sr-only">Menu</span>
-                    </button>
-                  </DrawerTrigger>
+              <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
+                <DrawerTrigger asChild>
+                  <button type="button" className={cn(navbarControlClassName)}>
+                    <TextAlignJustify size={20} />
+                    <span className="sr-only">Menu</span>
+                  </button>
+                </DrawerTrigger>
 
-                  <DrawerContent>
-                    <DrawerHeader>
-                      <DrawerTitle>Menu</DrawerTitle>
-                      <DrawerDescription>Naviga tra le sezioni del sito.</DrawerDescription>
-                    </DrawerHeader>
+                <DrawerContent>
+                  <DrawerHeader className="flex-row items-center justify-between w-full">
+                    <Switch />
+                    <DrawerClose asChild>
+                      <Button variant="outline" className="h-10 w-10">
+                        <X />
+                      </Button>
+                    </DrawerClose>
+                  </DrawerHeader>
 
-                    <div className="overflow-y-auto px-4">
-                      {navigationData.map((item) => {
-                        const isActive = isNavLinkActive(pathname, item.href);
+                  <div className="overflow-y-auto px-4">
+                    {navigationData.map((item) => {
+                      const isActive = isNavLinkActive(pathname, item.href);
 
-                        return (
-                          <DrawerClose asChild key={item.title}>
-                            <Link
-                              href={item.href}
-                              className={cn(
-                                "mb-4 block rounded-lg px-3 py-2 text-sm font-medium leading-normal",
-                                isActive
-                                  ? "bg-accent text-accent-foreground"
-                                  : "text-foreground hover:bg-accent/50",
-                              )}
-                              aria-current={isActive ? "page" : undefined}
-                            >
-                              {item.title}
-                            </Link>
-                          </DrawerClose>
-                        );
-                      })}
-                    </div>
-
-                    <DrawerFooter>
-                      <DrawerClose asChild>
-                        <Button variant="outline">Chiudi</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
-                  </DrawerContent>
-                </Drawer>
-              ) : (
-                <button
-                  type="button"
-                  className="flex cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 outline-none transition-colors"
-                  aria-label="Menu"
-                >
-                  <TextAlignJustify size={20} />
-                </button>
-              )}
+                      return (
+                        <DrawerClose asChild key={item.title}>
+                          <Link
+                            href={item.href}
+                            className={cn(
+                              "mb-4 block rounded-lg px-3 py-2 text-sm font-medium leading-normal",
+                              isActive
+                                ? "bg-accent text-accent-foreground"
+                                : "text-foreground hover:bg-accent/50",
+                            )}
+                            aria-current={isActive ? "page" : undefined}
+                          >
+                            {item.title}
+                          </Link>
+                        </DrawerClose>
+                      );
+                    })}
+                  </div>
+                </DrawerContent>
+              </Drawer>
             </div>
           </nav>
         </div>

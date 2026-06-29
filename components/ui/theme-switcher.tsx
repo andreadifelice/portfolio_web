@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 
 /** Stesso padding e forma del logo in navbar (cerchio) */
 export const navbarControlClassName =
-  'inline-flex size-14! shrink-0 items-center justify-center rounded-full p-2.5 bg-secondary/20 backdrop-blur-lg';
+  'inline-flex size-14! shrink-0 items-center justify-center rounded-full p-2.5 bg-secondary/50 backdrop-blur-lg border-border';
 
 const ThemeSwitcher = ({ className }: { className?: string }) => {
   const { resolvedTheme, setTheme } = useTheme();

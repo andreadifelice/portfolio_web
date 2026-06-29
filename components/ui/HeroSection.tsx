@@ -2,8 +2,10 @@
 
 import { cn } from '@/lib/utils';
 import { motion, type MotionValue } from 'framer-motion';
+import type { StaticImageData } from 'next/image';
 import { SimpleIcon } from 'simple-icons';
 import type { ComponentPropsWithoutRef, ElementType } from 'react';
+import Link from 'next/link';
 
 export function SimpleIconSvg({ icon, className }: { icon: SimpleIcon; className?: string }) {
     return (
@@ -24,7 +26,7 @@ interface HeroVariantProps {
     logoText?: string;
     mainText: string;
     readMoreLink: string;
-    imageSrc: string;
+    imageSrc: string | StaticImageData;
     imageAlt: string;
     overlayText: {
         part1: string;
@@ -72,6 +74,7 @@ export const HeroSection = ({
     }: HeroVariantProps) => {
     const Root = animated ? motion.div : ('div' as ElementType);
     const rootProps = animated && textColor ? { style: { color: textColor } } : {};
+    const resolvedImageSrc = typeof imageSrc === 'string' ? imageSrc : imageSrc.src;
 
     return (
         <Root
@@ -111,12 +114,12 @@ export const HeroSection = ({
                         animate: { opacity: 1, y: 0 },
                         transition: { duration: 0.6, delay: 1 },
                     }}
-                    className="z-20 order-2 md:order-1 text-center md:text-left"
+                    className="z-20 order-2 md:order-1 text-center md:text-left bg-background/70 backdrop-blur-md md:backdrop-blur-none md:bg-transparent p-2 rounded-2xl"
                 >
-                    <p className={cn('mx-auto max-w-xs text-sm leading-relaxed md:mx-0', textColor ? 'text-inherit opacity-80' : 'text-foreground/80')}>{mainText}</p>
-                    <a href={readMoreLink} className={cn('mt-4 inline-block text-sm font-medium underline', textColor ? 'text-inherit' : 'text-foreground')}>
+                    <p className={cn('mx-auto max-w-xs text-sm leading-relaxed md:mx-0 text-primary')}>{mainText}</p>
+                    <Link href={readMoreLink} className={cn('mt-4 inline-block text-sm font-medium underline', textColor ? 'text-inherit' : 'text-foreground')}>
                         Read More
-                    </a>
+                    </Link>
                 </AnimatedBox>
         
                 <div className="relative order-1 md:order-2 flex justify-center items-center h-full">
@@ -131,7 +134,7 @@ export const HeroSection = ({
                     />
                     {animated ? (
                         <motion.img
-                            src={imageSrc}
+                            src={resolvedImageSrc}
                             alt={imageAlt}
                             className="relative z-10 h-auto w-56 scale-150 object-cover md:w-64 lg:w-72"
                             initial={{ opacity: 0, y: 50 }}
@@ -145,7 +148,7 @@ export const HeroSection = ({
                         />
                     ) : (
                         <img
-                            src={imageSrc}
+                            src={resolvedImageSrc}
                             alt={imageAlt}
                             className="relative z-10 h-auto w-56 scale-150 object-cover md:w-64 lg:w-72"
                             onError={(e) => {
@@ -184,15 +187,16 @@ export const HeroSection = ({
                     }}
                     className="flex items-center space-x-4"
                 >
+                    <p className='text-primary'>Follow me</p>
                     {socialLinks.map((link) => (
-                        <a
+                        <Link
                             key={link.icon.slug}
                             href={link.href}
                             aria-label={link.icon.title}
                             className={cn('transition-opacity', textColor ? 'text-inherit opacity-60 hover:opacity-100' : 'text-foreground/60 hover:text-foreground')}
                         >
                             <SimpleIconSvg icon={link.icon} />
-                        </a>
+                        </Link>
                     ))}
                 </AnimatedBox>
             </footer>

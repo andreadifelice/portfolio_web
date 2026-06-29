@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/shadcn-space/blocks/navbar-01/navbar";
+import Footer from "@/components/ui/Footer";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'})
 
@@ -27,6 +28,9 @@ export default function RootLayout({
         <ThemeProvider>
           <Navbar />
           {children}
+          <div className="bg-background">
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

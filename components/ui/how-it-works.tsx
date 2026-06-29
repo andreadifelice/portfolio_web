@@ -1,5 +1,5 @@
 import placeholder from '@/assets/placeholder.png';
-import html from '@/assets/html.svg';
+import html from '@/assets/icons/html.svg';
 import Image, { type StaticImageData } from "next/image";
 import React from "react";
 

@@ -12,12 +12,13 @@ import Link from 'next/link';
 import { Button } from './button';
 import Image from 'next/image';
 import placeholder from '@/assets/placeholder.png'
+import me from '@/assets/me.webp'
 
 
 const heroProps = {
     mainText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultrices, justo vel tempus.",
     readMoreLink: "#about",
-    imageSrc: "https://ik.imagekit.io/fpxbgsota/image%2013.png?updatedAt=1753531863793",
+    imageSrc: me,
     imageAlt: "A portrait of a person in a black turtleneck, in profile.",
     overlayText: {
         part1: "less is",
@@ -44,9 +45,8 @@ const projectProps = [
     },
 ]
 
-function ProjectsSection() {
+function ProjectsGrid() {
     return (
-        <div className='container relative z-10 mx-auto flex flex-col gap-20 p-8 pt-25 md:pt-50'>
         <div className='flex flex-col gap-5'>
             <p className='text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl'>
                 I miei progetti
@@ -72,7 +72,14 @@ function ProjectsSection() {
                 ))}
             </div>
         </div>
-        <ChangelogContent />
+    );
+}
+
+function ProjectsSection() {
+    return (
+        <div className='container relative z-10 mx-auto flex flex-col gap-20 p-8 pt-25 md:pt-50'>
+            <ProjectsGrid />
+            <ChangelogContent />
         </div>
     );
 }
@@ -121,14 +128,19 @@ function MobileScroll() {
 }
 
 function DesktopScroll() {
-    const container = useRef();
+    const animationRef = useRef();
     const { scrollYProgress } = useScroll({
-        target: container,
+        target: animationRef,
         offset: ['start start', 'end end'],
     });
 
     return (
-        <main ref={container} className='relative h-[200vh] bg-black'>
+        <main className='relative bg-black'>
+            <div
+                ref={animationRef}
+                className='pointer-events-none absolute inset-x-0 top-0 h-[200vh]'
+                aria-hidden
+            />
             <Section1 scrollYProgress={scrollYProgress} />
             <Section2 scrollYProgress={scrollYProgress} />
         </main>
