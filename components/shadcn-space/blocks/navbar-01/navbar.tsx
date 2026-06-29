@@ -1,5 +1,5 @@
 'use client'
-import logo from '@/assets/logo/logo.svg';
+import Logo from '@/assets/logo/logo';
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -13,7 +13,6 @@ import Switch, { navbarControlClassName } from '@/components/ui/theme-switcher';
 import { cn } from "@/lib/utils";
 import { TextAlignJustify, X } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -95,7 +94,7 @@ const Navbar = () => {
               href="/"
               className={cn(navbarControlClassName)}
             >
-              <Image src={logo} alt="adf.creations logo" className="h-9 w-9" />
+              <Logo className="h-9 w-9 text-primary" />
             </Link>
             <div>
               <NavigationMenu className="max-lg:hidden p-2.5 rounded-full bg-background">
