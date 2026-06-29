@@ -1,5 +1,10 @@
 import placeholder from '@/assets/placeholder.png';
 import html from '@/assets/icons/html.svg';
+import css from '@/assets/icons/css.svg';
+import javascript from '@/assets/icons/javascript.svg';
+import figma from '@/assets/icons/figma.svg';
+import illustrator from '@/assets/icons/illustrator.svg';
+import photoshop from '@/assets/icons/photoshop.svg';
 import Image, { type StaticImageData } from "next/image";
 import React from "react";
 
@@ -50,21 +55,46 @@ const defaultHowItWorksProps: Required<
 };
 
 export const howItWorksByYear: Record<string, OnboardingStepsProps> = {
-  "2023/2024": {
-    mainHeadline: "Titolo 2023/2024",
-    mainDescription: "Descrizione del percorso",
+  "2022": {
+    mainHeadline: "Dove tutto ha avuto inizio...",
+    mainDescription: "Appena finito le superiori iniziai ad approcciarmi con il mondo del web grazie ad un corso gratuito dove ho potuto scoprire la passione per la programmazione, da qui nasce l'idea di iscrivermi all'istituto professionale Infobasic",
+    steps: [],
+  },
+  "2023/2025": {
+    mainHeadline: "Il biennio da Web Designer",
+    mainDescription: "Il biennio in Web & Multimedia Design è iniziato con una marcia in più, grazie alle basi di HTML che avevo già studiato in autonomia. Nel corso degli studi, ho arricchito le mie competenze unendo il codice ai principi della grafica e della UX/UI, acquisendo anche solide basi di web marketing. Avendo da sempre un approccio molto pratico e operativo, ho trovato subito il mio ambiente ideale: questo mi ha permesso di assimilare nuove metodologie e tecnologie in tempi brevi, trasformando immediatamente la teoria in progetti concreti.",
     steps: [
       {
         icon: html,
-        title: "HTML",
-        description: "Descrizione di HTML 5",
+        title: "HTML 5",
+        description: "Sviluppo di interfacce web tramite markup HTML semantico",
+      },
+      {
+        icon: css,
+        title: "CSS 3",
+        description: "Ottimizzazione dell'aspetto visivo e dell'esperienza utente attraverso l'uso di CSS moderno, animazioni e micro-interazioni.",
+      },
+      {
+        icon: javascript,
+        title: "Javascript",
+        description: "Sviluppo di logiche front-end dinamiche utilizzando JavaScript moderno (ES6+), garantendo codice fluido, modulare e ben strutturato.",
+      },
+      {
+        icon: figma,
+        title: "Figma",
+        description: "Progettazione di interfacce utente (UI) e studio dell'esperienza utente (UX) per siti web e web app, dalla creazione di wireframe strutturali fino allo sviluppo di prototipi interattivi ad alta fedeltà.",
+      },
+      {
+        icon: illustrator,
+        title: "Illustrator",
+        description: "Creazione di icone personalizzate, illustrazioni ed esportazione ottimizzata di asset in formato SVG per arricchire le interfacce web mantenendole leggere e definite.",
+      },
+      {
+        icon: photoshop,
+        title: "Photoshop",
+        description: "Ottimizzazione del peso e della qualità degli asset fotografici per il web, oltre alla creazione di mockup realistici per presentare al meglio progetti digitali e identità di brand.",
       },
     ],
-  },
-  "2024/2025": {
-    mainHeadline: "Titolo 2024/2025",
-    mainDescription: "Descrizione del percorso",
-    steps: [],
   },
   "2025": {
     mainHeadline: "Titolo 2025",
@@ -91,21 +121,28 @@ export default function HowItWorks(props: OnboardingStepsProps = {}) {
           <p className="text-primary/50">{mainDescription}</p>
         </div>
 
-        <div className="space-y-8 mt-14 mb-8">
-          {steps.map((step, index) => (
-            <div key={index} className="flex gap-4 items-start mt-8">
-              <div
-                className={'size-15'}
-              >
-                <Image src={step.icon} alt='immagine-percorso' className='object-cover object-center aspect-square rounded-full bg-primary p-1'/>
-              </div>
-              <div>
-                <p className="text-base font-medium md:text-lg">{step.title}</p>
-                <p className="text-primary/50 mt-1">{step.description}</p>
-              </div>
+        {steps.length > 0 && (
+          <div className="mt-14 mb-8">
+            <p className='text-xl'>Competenze acquisite:</p>
+            <div className="space-y-8 mt-8">
+              {steps.map((step, index) => (
+                <div key={index} className="flex gap-4 items-start">
+                  <div className="size-15">
+                    <Image
+                      src={step.icon}
+                      alt={step.title}
+                      className="object-cover object-center aspect-square rounded-full bg-primary p-1"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-base font-medium md:text-lg">{step.title}</p>
+                    <p className="text-primary/50 mt-1">{step.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

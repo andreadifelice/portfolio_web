@@ -32,14 +32,14 @@ const heroProps = {
 
 const projectProps = [
     {
-        title: 'Progetto 1',
-        description: 'Descrizione progetto 1',
+        title: 'Tournament manager',
+        description: 'Applicativo web fullstack con gestione CRUD delle squadre e dei tornei da disputare',
         link: '/progetti',
         img: placeholder
     },
     {
-        title: 'Progetto 2',
-        description: 'Descrizione progetto 2',
+        title: 'Car configurator',
+        description: 'Creazione auto come admin e configurazione delle auto come user',
         link: '/progetti',
         img: placeholder
     },
@@ -54,13 +54,13 @@ function ProjectsGrid() {
             <div className='grid grid-cols-1 md:grid-cols-3 gap-2.5'>
                 {projectProps.map((project, i) => (
                     <Link href={project.link} key={i} className='group transition-all'>
-                        <MagicCard className='rounded-lg p-4'>
-                            <div className='flex flex-col gap-4'>
+                        <MagicCard className='rounded-lg p-4 h-full flex'>
+                            <div className='flex flex-col gap-4 h-full justify-between'>
                                 <div className='flex gap-4'>
                                     <Image src={project.img} className='rounded-full object-cover object-center size-20' alt='logo progetto'/>
                                     <div>
-                                        <p>{project.title}</p>
-                                        <span>{project.description}</span>
+                                        <p className='font-bold'>{project.title}</p>
+                                        <span className='text-sm text-muted-foreground'>{project.description}</span>
                                     </div>
                                 </div>
                                 <Button className='pointer-events-none group-hover:bg-background group-hover:text-primary group-hover:border-border'>

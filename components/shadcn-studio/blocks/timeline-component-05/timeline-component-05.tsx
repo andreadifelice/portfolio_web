@@ -11,8 +11,8 @@ export interface Release {
 }
 
 export const defaultTimelineReleases: Release[] = [
-  { year: '2023/2024', content: <HowItWorks {...howItWorksByYear['2023/2024']} /> },
-  { year: '2024/2025', content: <HowItWorks {...howItWorksByYear['2024/2025']} /> },
+  { year: '2022', content: <HowItWorks {...howItWorksByYear['2022']} /> },
+  { year: '2023/2025', content: <HowItWorks {...howItWorksByYear['2023/2025']} /> },
   { year: '2025', content: <HowItWorks {...howItWorksByYear['2025']} /> },
   { year: 'Oggi', content: <HowItWorks {...howItWorksByYear.Oggi} /> },
 ]
@@ -27,7 +27,7 @@ const ChangelogContent = ({ releases = defaultTimelineReleases }: ChangelogConte
       <div className='mb-8 space-y-3 text-start md:mb-10 lg:mb-18'>
         <h2 className='text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl'>Il mio percorso formativo</h2>
         <p className='text-muted-foreground text-base md:text-lg'>
-          Discover what’s been added, changed, fixed, improved, and updated in this release.
+          Qui in basso troverai la storia di come ho iniziato ad intraprendere la carriera come web developer partendo completamente da zero
         </p>
       </div>
       {releases.map((release, index) => (
