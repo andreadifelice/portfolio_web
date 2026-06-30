@@ -127,11 +127,13 @@ export default function HowItWorks(props: OnboardingStepsProps = {}) {
             <div className="space-y-8 mt-8">
               {steps.map((step, index) => (
                 <div key={index} className="flex gap-4 items-start">
-                  <div className="size-15">
+                  <div className="relative size-9 shrink-0 md:size-12">
                     <Image
                       src={step.icon}
                       alt={step.title}
-                      className="object-cover object-center aspect-square rounded-full bg-primary p-1"
+                      fill
+                      sizes="(max-width: 768px) 36px, 48px"
+                      className="rounded-full bg-white object-cover p-1 shadow-2xs"
                     />
                   </div>
                   <div>

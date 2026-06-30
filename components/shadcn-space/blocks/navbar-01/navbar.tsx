@@ -118,7 +118,7 @@ const Navbar = () => {
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
-            <Switch className='hidden md:flex'/>
+            <Switch className='hidden lg:flex'/>
 
             <div className="lg:hidden">
               <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
