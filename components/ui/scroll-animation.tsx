@@ -11,7 +11,9 @@ import { MagicCard } from './magic-card';
 import Link from 'next/link';
 import { Button } from './button';
 import Image from 'next/image';
-import placeholder from '@/assets/placeholder.png'
+//import placeholder from '@/assets/placeholder.png'
+import carLogo from '@/assets/projects/car_logo.jpeg'
+import soccerLogo from '@/assets/projects/logo_soccer.svg'
 import me from '@/assets/me.webp'
 
 
@@ -35,13 +37,13 @@ const projectProps = [
         title: 'Tournament manager',
         description: 'Applicativo web fullstack con gestione CRUD delle squadre e dei tornei da disputare',
         link: '/progetti',
-        img: placeholder
+        img: soccerLogo
     },
     {
         title: 'Car configurator',
         description: 'Creazione auto come admin e configurazione delle auto come user',
         link: '/progetti',
-        img: placeholder
+        img: carLogo
     },
 ]
 
@@ -57,7 +59,7 @@ function ProjectsGrid() {
                         <MagicCard className='rounded-lg p-4 h-full flex'>
                             <div className='flex flex-col gap-4 h-full justify-between'>
                                 <div className='flex gap-4'>
-                                    <Image src={project.img} className='rounded-full object-cover object-center size-20' alt='logo progetto'/>
+                                    <Image src={project.img} className='rounded-full object-cover object-center size-20 bg-white shadow-md' alt='logo progetto'/>
                                     <div>
                                         <p className='font-bold'>{project.title}</p>
                                         <span className='text-sm text-muted-foreground'>{project.description}</span>
