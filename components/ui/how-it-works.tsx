@@ -1,5 +1,6 @@
 import placeholder from '@/assets/placeholder.png';
 import html from '@/assets/icons/html.svg';
+import php from '@/assets/icons/php.webp';
 import css from '@/assets/icons/css.svg';
 import javascript from '@/assets/icons/javascript.svg';
 import figma from '@/assets/icons/figma.svg';
@@ -62,7 +63,7 @@ export const howItWorksByYear: Record<string, OnboardingStepsProps> = {
   },
   "2023/2025": {
     mainHeadline: "Il biennio da Web Designer",
-    mainDescription: "Il biennio in Web & Multimedia Design è iniziato con una marcia in più, grazie alle basi di HTML che avevo già studiato in autonomia. Nel corso degli studi, ho arricchito le mie competenze unendo il codice ai principi della grafica e della UX/UI, acquisendo anche solide basi di web marketing. Avendo da sempre un approccio molto pratico e operativo, ho trovato subito il mio ambiente ideale: questo mi ha permesso di assimilare nuove metodologie e tecnologie in tempi brevi, trasformando immediatamente la teoria in progetti concreti.",
+    mainDescription: "Il biennio in Web & Multimedia Design è iniziato con una marcia in più, grazie alle basi di HTML che avevo già studiato in autonomia. Nel corso degli studi, ho arricchito le mie competenze unendo il codice ai principi della grafica e della UX/UI, acquisendo anche solide basi di web marketing. Avendo da sempre un approccio molto pratico e operativo, ho trovato subito il mio ambiente ideale: questo mi ha permesso di assimilare nuove metodologie e tecnologie in tempi brevi, trasformando immediatamente la teoria in progetti concreti. Al termine del secondo anno accademico presso Infobasic, ho consolidato le mie competenze ottenendo la qualifica da Web Designer e la certificazione di Certified WordPress Editor.",
     steps: [
       {
         icon: html,
@@ -97,9 +98,15 @@ export const howItWorksByYear: Record<string, OnboardingStepsProps> = {
     ],
   },
   "2025": {
-    mainHeadline: "Titolo 2025",
-    mainDescription: "Descrizione del percorso",
-    steps: [],
+    mainHeadline: "Il percorso da fullstack developer",
+    mainDescription: "Dopo il biennio, ho consolidato il mio profilo tecnico frequentando un Master come Fullstack Developer. Ho ampliato il mio raggio d'azione dallo sviluppo visivo fino all'architettura server-side, padroneggiando tecnologie avanzate per sviluppare piattaforme web complete, scalabili e performanti.",
+    steps: [
+      {
+        icon: php,
+        title: "PHP",
+        description: "Progettazione e sviluppo lato server in PHP per la gestione dinamica dei dati. Sviluppo di modelli, migrazioni strutturate e integrazione efficiente con database relazionali (come PostgreSQL) per alimentare web app complesse.",
+      },
+    ],
   },
   Oggi: {
     mainHeadline: "Titolo oggi",
@@ -133,7 +140,7 @@ export default function HowItWorks(props: OnboardingStepsProps = {}) {
                       alt={step.title}
                       fill
                       sizes="(max-width: 768px) 36px, 48px"
-                      className="rounded-full bg-white object-cover p-1 shadow-2xs"
+                      className="rounded-full bg-white object-contain p-1 shadow-2xs"
                     />
                   </div>
                   <div>
