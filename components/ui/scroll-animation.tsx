@@ -18,8 +18,8 @@ import me from '@/assets/me.webp'
 
 
 const heroProps = {
-    mainText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultrices, justo vel tempus.",
-    readMoreLink: "#about",
+    mainText: "Ciao, sono Andrea. Sono un Fullstack Developer Junior e Web Designer. Unisco la creatività del design visivo alla solidità del codice backend per dare vita a esperienze web complete, curate nei minimi dettagli e orientate alle performance. Dall'architettura del database alla cura dell'interfaccia, trasformo le idee in soluzioni digitali concrete.",
+    readMoreLink: "#projects",
     imageSrc: me,
     imageAlt: "A portrait of a person in a black turtleneck, in profile.",
     overlayText: {
@@ -79,7 +79,7 @@ function ProjectsGrid() {
 
 function ProjectsSection() {
     return (
-        <div className='container relative z-10 mx-auto flex flex-col gap-20 p-8 pt-25 md:pt-50'>
+        <div className='container relative z-10 mx-auto flex flex-col gap-20 p-8 pt-25 md:pt-50 scroll-mt-24' data-section="projects">
             <ProjectsGrid />
             <ChangelogContent />
         </div>

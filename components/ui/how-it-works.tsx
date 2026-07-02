@@ -1,6 +1,9 @@
 import placeholder from '@/assets/placeholder.png';
 import html from '@/assets/icons/html.svg';
 import php from '@/assets/icons/php.webp';
+import laravel from '@/assets/icons/laravel.png';
+import hono from '@/assets/icons/hono.webp';
+import postgres from '@/assets/icons/postgres.svg';
 import css from '@/assets/icons/css.svg';
 import javascript from '@/assets/icons/javascript.svg';
 import figma from '@/assets/icons/figma.svg';
@@ -105,6 +108,21 @@ export const howItWorksByYear: Record<string, OnboardingStepsProps> = {
         icon: php,
         title: "PHP",
         description: "Progettazione e sviluppo lato server in PHP per la gestione dinamica dei dati. Sviluppo di modelli, migrazioni strutturate e integrazione efficiente con database relazionali (come PostgreSQL) per alimentare web app complesse.",
+      },
+      {
+        icon: laravel,
+        title: "Laravel",
+        description: "Framework PHP avanzato per lo sviluppo di architetture backend solide, sicure e scalabili basate su pattern MVC.",
+      },
+      {
+        icon: postgres,
+        title: "Postgres SQL",
+        description: "Sistema di gestione di database relazionali (RDBMS) avanzato e open-source, scelto per la sua straordinaria robustezza, affidabilità e capacità di gestire query complesse.",
+      },
+      {
+        icon: hono,
+        title: "Hono drizzle orm",
+        description: "Sistema di gestione di database relazionali (RDBMS) avanzato e open-source, scelto per la sua straordinaria robustezza, affidabilità e capacità di gestire query complesse.",
       },
     ],
   },

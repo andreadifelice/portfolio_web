@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { TextAlignJustify, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export type NavigationSection = {
   title: string;
@@ -29,6 +29,12 @@ function isNavLinkActive(pathname: string, href: string) {
   if (!path) return false;
 
   return pathname === path || pathname.startsWith(`${path}/`);
+}
+
+export const scrollToSection = (sectionName: string) => {
+  const el = document.querySelector(`[data-section="${sectionName}"]`);
+  if(!el) return;
+  el.scrollIntoView({behavior: 'smooth', block:'start'})
 }
 
 const navLinkClassName = (isActive: boolean) =>
@@ -57,9 +63,23 @@ const Navbar = () => {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [sticky, setSticky] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const lastScrollYRef = useRef(0);
+
   const handleScroll = useCallback(() => {
-    setSticky(window.scrollY >= 50);
+    const currentScrollY = window.scrollY;
+    const isScrollingDown = currentScrollY > lastScrollYRef.current;
+
+    setSticky(currentScrollY >= 50);
+
+    if (currentScrollY <= 10) {
+      setIsNavbarVisible(true);
+    } else {
+      setIsNavbarVisible(!isScrollingDown);
+    }
+
+    lastScrollYRef.current = currentScrollY;
   }, []);
 
   const handleResize = useCallback(() => {
@@ -77,9 +97,18 @@ const Navbar = () => {
     };
   }, [handleScroll, handleResize]);
 
+  useEffect(() => {
+    if (isOpen) setIsNavbarVisible(true);
+  }, [isOpen]);
+
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50">
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out",
+          isNavbarVisible ? "translate-y-0" : "-translate-y-full",
+        )}
+      >
         <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6">
           <nav
             className={cn(

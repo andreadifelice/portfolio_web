@@ -2,10 +2,13 @@
 
 import { cn } from '@/lib/utils';
 import { motion, type MotionValue } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
-import { SimpleIcon } from 'simple-icons';
-import type { ComponentPropsWithoutRef, ElementType } from 'react';
 import Link from 'next/link';
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
+import { SimpleIcon } from 'simple-icons';
+import { scrollToSection } from '../shadcn-space/blocks/navbar-01/navbar';
+import { Button } from './button';
 
 export function SimpleIconSvg({ icon, className }: { icon: SimpleIcon; className?: string }) {
     return (
@@ -117,9 +120,16 @@ export const HeroSection = ({
                     className="z-20 order-2 md:order-1 text-center md:text-left bg-background/70 backdrop-blur-md md:backdrop-blur-none md:bg-transparent p-2 rounded-2xl"
                 >
                     <p className={cn('mx-auto max-w-xs text-sm leading-relaxed md:mx-0 text-primary')}>{mainText}</p>
-                    <Link href={readMoreLink} className={cn('mt-4 inline-block text-sm font-medium underline', textColor ? 'text-inherit' : 'text-foreground')}>
-                        Read More
-                    </Link>
+                    <Button 
+                        onClick={(e) => {
+                            e.preventDefault();
+                            scrollToSection("projects");
+                        }} 
+                        className={'mt-4 group flex items-center gap-1 p-4 rounded-lg text-sm font-medium text-background bg-primary hover:bg-background hover:border-primary hover:text-primary hover:rounded-[999px] transition-[border-radius,background-color,color,border-color,transform] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]'}
+                    >
+                        Scopri di più
+                        <ArrowRight className='transition-transform duration-500 ease-out group-hover:rotate-90'/>
+                    </Button>
                 </AnimatedBox>
         
                 <div className="relative order-1 md:order-2 flex justify-center items-center h-full">
