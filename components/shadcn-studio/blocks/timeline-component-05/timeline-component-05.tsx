@@ -3,7 +3,8 @@
 import type { ReactNode } from 'react'
 
 import { Badge } from '@/components/ui/badge'
-import HowItWorks, { howItWorksByYear } from '@/components/ui/how-it-works'
+import HowItWorks from '@/components/ui/how-it-works'
+import { howItWorksByYear } from '@/lib/utils'
 
 export interface Release {
   year: string
