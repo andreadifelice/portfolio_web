@@ -1,17 +1,11 @@
-import { heroProps, projectProps } from '@/lib/utils';
-import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { cn, heroProps, pageContainerClass, projectProps, SectionProps } from '@/lib/utils';
+import { motion, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import ChangelogContent from '../shadcn-studio/blocks/timeline-component-05/timeline-component-05';
-import { MagicCard } from '../ui/magic-card';
 import { Button } from '../ui/button';
 import { HeroSection } from '../ui/HeroSection';
-import { useRef } from 'react';
-
-type SectionProps = {
-    scrollYProgress: MotionValue<number>;
-    animated: boolean;
-};
+import { MagicCard } from '../ui/magic-card';
 
 
 export function ProjectsGrid() {
@@ -46,7 +40,13 @@ export function ProjectsGrid() {
 
 export function PortfolioContentSection() {
     return (
-        <div className='container relative z-10 mx-auto flex flex-col gap-20 p-8 pt-25 md:pt-50 scroll-mt-24' data-section="projects">
+        <div
+            className={cn(
+                pageContainerClass,
+                'relative z-10 flex flex-col gap-20 py-8 pt-25 md:pt-50 scroll-mt-24',
+            )}
+            data-section="projects"
+        >
             <ProjectsGrid />
             <ChangelogContent />
         </div>
@@ -57,8 +57,8 @@ export function Section1({ scrollYProgress, animated }: SectionProps) {
     const scale = useTransform(scrollYProgress, [0, 1], animated ? [1, 0.8] : [1, 1]);
     const rotate = useTransform(scrollYProgress, [0, 1], animated ? [0, -5] : [0, 0]);
     const className = animated
-        ? 'sticky top-0 flex h-screen flex-col items-center justify-center bg-linear-to-t from-[#ebebeb] to-[#dadada] font-semibold text-black'
-        : 'flex min-h-dvh w-full flex-col bg-linear-to-t from-[#ebebeb] to-[#dadada] font-semibold text-black';
+        ? 'sticky top-0 flex h-dvh w-full flex-col items-center justify-center bg-background font-semibold text-foreground'
+        : 'flex min-h-dvh w-full flex-col bg-background font-semibold text-foreground';
 
     if (!animated) {
         return (
@@ -78,7 +78,7 @@ export function Section1({ scrollYProgress, animated }: SectionProps) {
 export function Section2({ scrollYProgress, animated }: SectionProps) {
     const scale = useTransform(scrollYProgress, [0, 1], animated ? [0.8, 1] : [1, 1]);
     const rotate = useTransform(scrollYProgress, [0, 1], animated ? [5, 0] : [0, 0]);
-    const className = 'relative h-fit bg-background text-primary';
+    const className = 'relative h-fit w-full bg-background text-primary';
     const content = (
         <>
             <div className='absolute inset-0 grid-pattern-lines mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]' />

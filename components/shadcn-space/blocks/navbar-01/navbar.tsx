@@ -10,54 +10,13 @@ import {
 } from "@/components/ui/drawer";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import Switch, { navbarControlClassName } from '@/components/ui/theme-switcher';
-import { cn } from "@/lib/utils";
+import { navigationData } from '@/lib/routes';
+import { cn, isNavLinkActive, navLinkClassName, pageContainerClass } from "@/lib/utils";
 import { TextAlignJustify, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export type NavigationSection = {
-  title: string;
-  href: string;
-};
-
-function isNavLinkActive(pathname: string, href: string) {
-  if (!href || href === "#") return false;
-  if (href === "/") return pathname === "/";
-
-  const [path] = href.split("#");
-  if (!path) return false;
-
-  return pathname === path || pathname.startsWith(`${path}/`);
-}
-
-export const scrollToSection = (sectionName: string) => {
-  const el = document.querySelector(`[data-section="${sectionName}"]`);
-  if(!el) return;
-  el.scrollIntoView({behavior: 'smooth', block:'start'})
-}
-
-const navLinkClassName = (isActive: boolean) =>
-  cn(
-    "px-2 lg:px-4 py-2 text-sm font-medium rounded-full transition tracking-normal outline",
-    isActive
-      ? "bg-primary! text-background outline-border shadow-xs"
-      : "text-muted-foreground outline-transparent hover:bg-background hover:text-foreground hover:outline-border hover:shadow-xs",
-  );
-
-const navigationData: NavigationSection[] = [
-  {
-    title: "Home",
-    href: "/",
-  },
-  {
-    title: "Progetti",
-    href: "/progetti",
-  },
-];
-
-const menuButtonClassName =
-  "flex cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 outline-none transition-colors";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -109,7 +68,7 @@ const Navbar = () => {
           isNavbarVisible ? "translate-y-0" : "-translate-y-full",
         )}
       >
-        <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6">
+        <div className={cn(pageContainerClass, "py-4")}>
           <nav
             className={cn(
               "mx-auto flex h-fit w-full max-w-full items-center justify-between gap-3.5 rounded-full border p-2.5 lg:gap-6",

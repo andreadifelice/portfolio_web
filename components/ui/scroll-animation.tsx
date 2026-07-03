@@ -1,21 +1,21 @@
 'use client'
 
-import { Section1, Section2 } from '@/components/scroll sections/scroll-types';
 import { useIsMobile } from '@/lib/use-mobile';
 import { useScroll } from 'framer-motion';
 import { useRef } from 'react';
+import { Section1, Section2 } from '../scroll-sections/scroll-types';
 
 export default function Scroll() {
     const isMobile = useIsMobile();
     const animated = isMobile === false;
     const animationRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
-    target: animationRef,
-    offset: ['start start', 'end end'],
-});
+        target: animationRef,
+        offset: ['start start', 'end end'],
+    });
 
     return (
-        <main className={animated ? 'relative bg-black' : 'bg-background'}>
+        <div className="relative w-full bg-background">
             <div
                 ref={animationRef}
                 className={
@@ -27,6 +27,6 @@ export default function Scroll() {
             />
             <Section1 scrollYProgress={scrollYProgress} animated={animated} />
             <Section2 scrollYProgress={scrollYProgress} animated={animated} />
-        </main>
+        </div>
     );
 }

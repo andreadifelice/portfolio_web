@@ -2,7 +2,7 @@ import { Geist_Mono, Inter } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { cn, pageContainerClass } from "@/lib/utils";
 import Navbar from "@/components/shadcn-space/blocks/navbar-01/navbar";
 import Footer from "@/components/ui/Footer";
 
@@ -20,16 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="it"
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
     >
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className="min-h-dvh bg-background">
         <ThemeProvider>
-          <Navbar />
-          {children}
-          <div className="bg-background">
-            <Footer />
+          <div className="flex min-h-dvh flex-col">
+            <Navbar />
+            <main className="w-full flex-1">{children}</main>
+            <div className={pageContainerClass}>
+              <Footer />
+            </div>
           </div>
         </ThemeProvider>
       </body>

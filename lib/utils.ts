@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
-import React from "react";
+import React, { ComponentPropsWithoutRef } from "react";
 import html from '@/assets/icons/html.svg';
 import php from '@/assets/icons/php.webp';
 import react from '@/assets/icons/react.webp';
@@ -15,17 +15,155 @@ import illustrator from '@/assets/icons/illustrator.svg';
 import photoshop from '@/assets/icons/photoshop.svg';
 import {type StaticImageData} from "next/image";
 
-
-import { siGithub, siInstagram } from 'simple-icons';
+import { siGithub, siInstagram, SimpleIcon } from 'simple-icons';
 import carLogo from '@/assets/projects/car_logo.jpeg'
 import soccerLogo from '@/assets/projects/logo_soccer.svg'
 import me from '@/assets/me.webp'
+import { motion, MotionValue } from "framer-motion";
 
 
+/* utils functions */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export const pageContainerClass = "mx-auto w-full max-w-7xl px-4 sm:px-6"
+
+export function SimpleIconSvg({ icon, className }: { icon: SimpleIcon; className?: string }) {
+  return React.createElement(
+    'svg',
+    {
+      role: 'img',
+      viewBox: '0 0 24 24',
+      xmlns: 'http://www.w3.org/2000/svg',
+      className: cn('h-5 w-5', className),
+      fill: 'currentColor',
+    },
+    React.createElement('title', null, icon.title),
+    React.createElement('path', { d: icon.path }),
+  );
+}
+/* utils functions */
+
+/* gallery utils */
+export interface GalleryItem {
+  id: string;
+  title: string;
+  summary: string;
+  url: string;
+  image: string;
+}
+
+export interface Gallery6Props {
+  heading?: string;
+  demoUrl?: string;
+  items?: GalleryItem[];
+  className?: string;
+}
+
+export const galleryProps: Gallery6Props = {
+  heading: "Le mie esperienze",
+  items: [
+    {
+      id: "item-1",
+      title: "Build Modern UIs",
+      summary:
+        "Create stunning user interfaces with our comprehensive design system.",
+      url: "#",
+      image:
+        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    },
+    {
+      id: "item-2",
+      title: "Computer Vision Technology",
+      summary:
+        "Powerful image recognition and processing capabilities that allow AI systems to analyze, understand, and interpret visual information from the world.",
+      url: "#",
+      image:
+        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    },
+    {
+      id: "item-3",
+      title: "Machine Learning Automation",
+      summary:
+        "Self-improving algorithms that learn from data patterns to automate complex tasks and make intelligent decisions with minimal human intervention.",
+      url: "#",
+      image:
+        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    },
+    {
+      id: "item-4",
+      title: "Predictive Analytics",
+      summary:
+        "Advanced forecasting capabilities that analyze historical data to predict future trends and outcomes, helping businesses make data-driven decisions.",
+      url: "#",
+      image:
+        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    },
+    {
+      id: "item-5",
+      title: "Neural Network Architecture",
+      summary:
+        "Sophisticated AI models inspired by human brain structure, capable of solving complex problems through deep learning and pattern recognition.",
+      url: "#",
+      image:
+        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    },
+  ],
+};
+/* gallery utils */
+
+
+/* Hero section utilities */
+export interface HeroVariantProps {
+  logoText?: string;
+  mainText: string;
+  readMoreLink: string;
+  imageSrc: string | StaticImageData;
+  imageAlt: string;
+  overlayText: {
+      part1: string;
+      part2: string;
+  };
+  socialLinks: { icon: SimpleIcon; href: string }[];
+  textColor?: MotionValue<string>;
+  animated?: boolean;
+}
+
+export type MotionDivProps = ComponentPropsWithoutRef<typeof motion.div>;
+/* Hero section utilities */
+
+
+/* nav utilities */
+export type NavigationSection = {
+  title: string;
+  href: string;
+};
+
+export function isNavLinkActive(pathname: string, href: string) {
+  if (!href || href === "#") return false;
+  if (href === "/") return pathname === "/";
+
+  const [path] = href.split("#");
+  if (!path) return false;
+
+  return pathname === path || pathname.startsWith(`${path}/`);
+}
+
+export const scrollToSection = (sectionName: string) => {
+  const el = document.querySelector(`[data-section="${sectionName}"]`);
+  if(!el) return;
+  el.scrollIntoView({behavior: 'smooth', block:'start'})
+}
+
+export const navLinkClassName = (isActive: boolean) =>
+  cn(
+  "px-2 lg:px-4 py-2 text-sm font-medium rounded-full transition tracking-normal outline",
+  isActive
+      ? "bg-primary! text-background outline-border shadow-xs"
+      : "text-muted-foreground outline-transparent hover:bg-background hover:text-foreground hover:outline-border hover:shadow-xs",
+  );
+/* nav utilities */
 
 /* timeline data utils */
 export interface Step {
@@ -129,6 +267,10 @@ export const howItWorksByYear: Record<string, OnboardingStepsProps> = {
 
 
 /* scroll data utils */
+export type SectionProps = {
+  scrollYProgress: MotionValue<number>;
+  animated: boolean;
+};
 export const heroProps = {
   mainText: "Ciao, sono Andrea. Sono un Fullstack Developer Junior e Web Designer. Unisco la creatività del design visivo alla solidità del codice backend per dare vita a esperienze web complete, curate nei minimi dettagli e orientate alle performance. Dall'architettura del database alla cura dell'interfaccia, trasformo le idee in soluzioni digitali concrete.",
   readMoreLink: "#projects",
@@ -143,7 +285,6 @@ export const heroProps = {
       { icon: siInstagram, href: "https://instagram.com/..." },
   ],
 };
-
 export const projectProps = [
   {
       title: 'Tournament manager',

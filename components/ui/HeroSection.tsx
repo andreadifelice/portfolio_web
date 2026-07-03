@@ -1,73 +1,16 @@
 "use client";
 
-import { cn } from '@/lib/utils';
-import { motion, type MotionValue } from 'framer-motion';
+import { cn, HeroVariantProps, pageContainerClass, scrollToSection, SimpleIconSvg } from '@/lib/utils';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import type { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import type { ComponentPropsWithoutRef, ElementType } from 'react';
-import { SimpleIcon } from 'simple-icons';
-import { scrollToSection } from '../shadcn-space/blocks/navbar-01/navbar';
+import type { ElementType } from 'react';
+import { AnimatedBox } from '../hero-sections/hero-utils';
 import { Button } from './button';
-
-export function SimpleIconSvg({ icon, className }: { icon: SimpleIcon; className?: string }) {
-    return (
-        <svg
-        role="img"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-        className={cn('h-5 w-5', className)}
-        fill="currentColor"
-        >
-        <title>{icon.title}</title>
-        <path d={icon.path} />
-        </svg>
-    );
-}
-
-interface HeroVariantProps {
-    logoText?: string;
-    mainText: string;
-    readMoreLink: string;
-    imageSrc: string | StaticImageData;
-    imageAlt: string;
-    overlayText: {
-        part1: string;
-        part2: string;
-    };
-    socialLinks: { icon: SimpleIcon; href: string }[];
-    textColor?: MotionValue<string>;
-    animated?: boolean;
-}
-
-type MotionDivProps = ComponentPropsWithoutRef<typeof motion.div>;
-
-function AnimatedBox({
-    animated,
-    className,
-    motionProps,
-    children,
-}: {
-    animated: boolean;
-    className?: string;
-    motionProps?: Pick<MotionDivProps, 'initial' | 'animate' | 'transition'>;
-    children?: React.ReactNode;
-}) {
-    if (!animated) {
-        return <div className={className}>{children}</div>;
-    }
-
-    return (
-        <motion.div className={className} {...motionProps}>
-            {children}
-        </motion.div>
-    );
-}
 
 export const HeroSection = ({
     logoText = "",
     mainText,
-    readMoreLink,
     imageSrc,
     imageAlt,
     overlayText,
@@ -83,11 +26,11 @@ export const HeroSection = ({
         <Root
             {...rootProps}
             className={cn(
-                "relative flex w-full flex-col items-center justify-between overflow-hidden bg-background p-8 font-sans md:p-12",
-                animated ? "h-screen" : "h-full min-h-dvh",
+                "relative flex w-full flex-col items-center justify-between overflow-hidden bg-background font-sans",
+                animated ? "h-dvh" : "h-full min-h-dvh",
             )}
         >
-            <header className="z-30 flex w-full max-w-7xl items-center justify-between">
+            <header className={cn(pageContainerClass, "z-30 flex w-full items-center justify-between py-8 md:py-12")}>
                 <AnimatedBox
                     animated={animated}
                     motionProps={{
@@ -109,7 +52,7 @@ export const HeroSection = ({
                 ) : null}
             </header>
     
-            <div className="relative grid w-full max-w-7xl grow grid-cols-1 items-center md:grid-cols-3">
+            <div className={cn(pageContainerClass, "relative grid w-full grow grid-cols-1 items-center md:grid-cols-3")}>
                 <AnimatedBox
                     animated={animated}
                     motionProps={{
@@ -187,7 +130,7 @@ export const HeroSection = ({
                 </AnimatedBox>
             </div>
         
-            <footer className="z-30 flex w-full max-w-7xl items-center justify-between">
+            <footer className={cn(pageContainerClass, "z-30 flex w-full items-center justify-between pb-8 md:pb-12")}>
                 <AnimatedBox
                     animated={animated}
                     motionProps={{
