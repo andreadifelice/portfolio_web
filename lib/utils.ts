@@ -1,6 +1,5 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-
 import React, { ComponentPropsWithoutRef } from "react";
 import html from '@/assets/icons/html.svg';
 import php from '@/assets/icons/php.webp';
@@ -14,21 +13,28 @@ import figma from '@/assets/icons/figma.svg';
 import illustrator from '@/assets/icons/illustrator.svg';
 import photoshop from '@/assets/icons/photoshop.svg';
 import {type StaticImageData} from "next/image";
-
 import { siGithub, siInstagram, SimpleIcon } from 'simple-icons';
-import carLogo from '@/assets/projects/car_logo.jpeg'
+import carLogo from '@/assets/projects/car_logo.webp'
 import soccerLogo from '@/assets/projects/logo_soccer.svg'
 import me from '@/assets/me.webp'
 import { motion, MotionValue } from "framer-motion";
+
+import deadairLogo from '@/assets/projects/deadair.webp'
+import yeezitaliaLogo from '@/assets/projects/yeezylogo.webp'
+import gentechLogo from '@/assets/projects/gentech.webp'
+import christianCalzoleriaLogo from '@/assets/projects/christianCalzoleria.webp'
+import oasiLogo from '@/assets/projects/oasi3.webp'
+import innamorataLogo from '@/assets/projects/innamorata.webp'
+import playvoltLogo from '@/assets/projects/playvolt.webp'
+import yeezyglobeLogo from '@/assets/projects/yzyglobe.webp'
+import marsicandoLogo from '@/assets/projects/marsicando.webp'
 
 
 /* utils functions */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-
 export const pageContainerClass = "mx-auto w-full max-w-7xl px-4 sm:px-6"
-
 export function SimpleIconSvg({ icon, className }: { icon: SimpleIcon; className?: string }) {
   return React.createElement(
     'svg',
@@ -45,6 +51,7 @@ export function SimpleIconSvg({ icon, className }: { icon: SimpleIcon; className
 }
 /* utils functions */
 
+
 /* gallery utils */
 export interface GalleryItem {
   id: string;
@@ -53,14 +60,12 @@ export interface GalleryItem {
   url: string;
   image: string;
 }
-
 export interface Gallery6Props {
   heading?: string;
   demoUrl?: string;
   items?: GalleryItem[];
   className?: string;
 }
-
 export const galleryProps: Gallery6Props = {
   heading: "Le mie esperienze",
   items: [
@@ -129,7 +134,6 @@ export interface HeroVariantProps {
   textColor?: MotionValue<string>;
   animated?: boolean;
 }
-
 export type MotionDivProps = ComponentPropsWithoutRef<typeof motion.div>;
 /* Hero section utilities */
 
@@ -139,7 +143,6 @@ export type NavigationSection = {
   title: string;
   href: string;
 };
-
 export function isNavLinkActive(pathname: string, href: string) {
   if (!href || href === "#") return false;
   if (href === "/") return pathname === "/";
@@ -149,13 +152,11 @@ export function isNavLinkActive(pathname: string, href: string) {
 
   return pathname === path || pathname.startsWith(`${path}/`);
 }
-
 export const scrollToSection = (sectionName: string) => {
   const el = document.querySelector(`[data-section="${sectionName}"]`);
   if(!el) return;
   el.scrollIntoView({behavior: 'smooth', block:'start'})
 }
-
 export const navLinkClassName = (isActive: boolean) =>
   cn(
   "px-2 lg:px-4 py-2 text-sm font-medium rounded-full transition tracking-normal outline",
@@ -164,6 +165,7 @@ export const navLinkClassName = (isActive: boolean) =>
       : "text-muted-foreground outline-transparent hover:bg-background hover:text-foreground hover:outline-border hover:shadow-xs",
   );
 /* nav utilities */
+
 
 /* timeline data utils */
 export interface Step {
@@ -300,3 +302,18 @@ export const projectProps = [
   },
 ]
 /* scroll data utils */
+
+
+/* images utils */
+export const images: { src: StaticImageData | string; alt: string }[] = [
+  { src: yeezitaliaLogo, alt: "Logo yeezitalia" },
+  { src: gentechLogo, alt: "Logo recensioni gadget tech" },
+  { src: marsicandoLogo, alt: "Logo mercatini Natale" },
+  { src: deadairLogo, alt: "Progetto gruppo rap Deadair" },
+  { src: playvoltLogo, alt: "Logo catalogo videogames" },
+  { src: yeezyglobeLogo, alt: "Logo yzyglobe" },
+  { src: christianCalzoleriaLogo, alt: "Progetto christian calzoleria" },
+  { src: oasiLogo, alt: "Logo spa" },
+  { src: innamorataLogo, alt: "Logo gelato italiano" },
+]
+/* images utils */

@@ -6,6 +6,10 @@ export const navigationData: NavigationSection[] = [
         href: "/",
     },
     {
+        title: "About me",
+        href: "/about",
+    },
+    {
         title: "Progetti",
         href: "/progetti",
     },
