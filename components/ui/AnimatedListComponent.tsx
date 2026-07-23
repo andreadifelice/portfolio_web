@@ -39,7 +39,7 @@ const Notification = ({ name, description, icon }: Item) => {
 
 export function AnimatedListComponent({ className }: { className?: string }) {
     return (
-        <div className={cn("relative flex h-fit w-full flex-col overflow-hidden p-2", className)}>
+        <div className={cn("relative flex h-72 w-full flex-col overflow-hidden p-2", className)}>
             <AnimatedList delay={1000} inView>
             {notifications.map((item) => (
                 <Notification {...item} key={item.id} />
