@@ -17,7 +17,7 @@ export const HeroSection = ({
     socialLinks,
     textColor,
     animated = true,
-    }: HeroVariantProps) => {
+}: HeroVariantProps) => {
     const Root = animated ? motion.div : ('div' as ElementType);
     const rootProps = animated && textColor ? { style: { color: textColor } } : {};
     const resolvedImageSrc = typeof imageSrc === 'string' ? imageSrc : imageSrc.src;
@@ -26,7 +26,7 @@ export const HeroSection = ({
         <Root
             {...rootProps}
             className={cn(
-                "relative flex w-full flex-col items-center justify-between overflow-hidden bg-background font-sans",
+                "relative flex w-full flex-col gap-5 md:gap-0 items-center justify-between overflow-hidden bg-background font-sans",
                 animated ? "h-dvh" : "h-full min-h-dvh",
             )}
         >
@@ -68,7 +68,7 @@ export const HeroSection = ({
                             e.preventDefault();
                             scrollToSection("projects");
                         }} 
-                        className={'mt-4 group flex items-center gap-1 p-4 rounded-lg text-sm font-medium text-background bg-primary hover:bg-background hover:border-primary hover:text-primary hover:rounded-[999px] transition-[border-radius,background-color,color,border-color,transform] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]'}
+                        className={'w-full md:w-fit mt-4 group flex items-center gap-1 p-4 rounded-lg text-sm font-medium text-background bg-primary hover:bg-background hover:border-primary hover:text-primary hover:rounded-[999px] transition-[border-radius,background-color,color,border-color,transform] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]'}
                     >
                         Scopri di più
                         <ArrowRight className='transition-transform duration-500 ease-out group-hover:rotate-90'/>
@@ -120,7 +120,10 @@ export const HeroSection = ({
                         animate: { opacity: 1, y: 0 },
                         transition: { duration: 0.6, delay: 1.2 },
                     }}
-                    className="z-20 order-3 flex items-center justify-center text-center md:justify-start"
+                    className={cn(
+                        "absolute inset-x-0 top-0 bottom-0 z-20 flex items-center justify-center text-center pointer-events-none",
+                        "md:relative md:inset-auto md:order-3 md:justify-start md:text-left md:pointer-events-auto"
+                    )}
                 >
                     <h1 className={cn('text-7xl font-extrabold md:text-8xl lg:text-9xl', textColor ? 'text-inherit' : 'text-foreground')}>
                         {overlayText.part1}
