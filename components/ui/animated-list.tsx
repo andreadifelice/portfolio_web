@@ -3,10 +3,17 @@
 import React, {
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ComponentPropsWithoutRef,
 } from "react"
-import { AnimatePresence, motion, type MotionProps } from "motion/react"
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  type MotionProps,
+  type UseInViewOptions,
+} from "motion/react"
 
 import { cn } from "@/lib/utils"
 
@@ -28,10 +35,23 @@ export function AnimatedListItem({ children }: { children: React.ReactNode }) {
 export interface AnimatedListProps extends ComponentPropsWithoutRef<"div"> {
   children: React.ReactNode
   delay?: number
+  loop?: boolean
+  inView?: boolean
+  inViewMargin?: UseInViewOptions["margin"]
 }
 
 export const AnimatedList = React.memo(
-  ({ children, className, delay = 1000, ...props }: AnimatedListProps) => {
+  ({
+    children,
+    className,
+    delay = 1000,
+    inView = false,
+    inViewMargin = "-50px",
+    ...props
+  }: AnimatedListProps) => {
+    const ref = useRef<HTMLDivElement>(null)
+    const inViewResult = useInView(ref, { once: true, margin: inViewMargin })
+    const isInView = !inView || inViewResult
     const [index, setIndex] = useState(0)
     const childrenArray = useMemo(
       () => React.Children.toArray(children),
@@ -39,28 +59,25 @@ export const AnimatedList = React.memo(
     )
 
     useEffect(() => {
-      let timeout: ReturnType<typeof setTimeout> | null = null
+      if (!isInView) return
+      if (index >= childrenArray.length - 1) return
 
-      if (index < childrenArray.length - 1) {
-        timeout = setTimeout(() => {
-          setIndex((prevIndex) => (prevIndex + 1) % childrenArray.length)
-        }, delay)
-      }
+      const timeout = setTimeout(() => {
+        setIndex((prev) => prev + 1)
+      }, delay)
 
-      return () => {
-        if (timeout !== null) {
-          clearTimeout(timeout)
-        }
-      }
-    }, [index, delay, childrenArray.length])
+      return () => clearTimeout(timeout)
+    }, [index, delay, childrenArray.length, isInView])
 
     const itemsToShow = useMemo(() => {
+      if (!isInView) return []
       const result = childrenArray.slice(0, index + 1).reverse()
       return result
-    }, [index, childrenArray])
+    }, [index, childrenArray, isInView])
 
     return (
       <div
+        ref={ref}
         className={cn(`flex flex-col items-center gap-4`, className)}
         {...props}
       >

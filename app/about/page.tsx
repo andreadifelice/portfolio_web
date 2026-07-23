@@ -1,4 +1,5 @@
 import img from '@/assets/me.webp';
+import { AnimatedListComponent } from '@/components/ui/AnimatedListComponent';
 import { BlurFadeComponents } from '@/components/ui/BlurFadeComponents';
 import { cn, pageContainerClass } from "@/lib/utils";
 import Image from "next/image";
@@ -19,7 +20,7 @@ export default function Page() {
             </div>
             <div className='flex flex-col gap-15'>
                 <p className='text-3xl font-bold'>Programmi che utilizzo da graphic designer</p>
-                illustator
+                <AnimatedListComponent />
             </div>
         </div>
     );

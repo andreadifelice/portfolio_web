@@ -1,34 +1,39 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-import React, { ComponentPropsWithoutRef } from "react";
-import html from '@/assets/icons/html.svg';
-import php from '@/assets/icons/php.webp';
-import react from '@/assets/icons/react.webp';
-import laravel from '@/assets/icons/laravel.png';
-import hono from '@/assets/icons/hono.webp';
-import postgres from '@/assets/icons/postgres.svg';
 import css from '@/assets/icons/css.svg';
-import javascript from '@/assets/icons/javascript.svg';
 import figma from '@/assets/icons/figma.svg';
+import hono from '@/assets/icons/hono.webp';
+import html from '@/assets/icons/html.svg';
 import illustrator from '@/assets/icons/illustrator.svg';
+import javascript from '@/assets/icons/javascript.svg';
+import laravel from '@/assets/icons/laravel.png';
 import photoshop from '@/assets/icons/photoshop.svg';
-import {type StaticImageData} from "next/image";
-import { siGithub, siInstagram, SimpleIcon } from 'simple-icons';
-import carLogo from '@/assets/projects/car_logo.webp'
-import soccerLogo from '@/assets/projects/logo_soccer.svg'
-import me from '@/assets/me.webp'
+import php from '@/assets/icons/php.webp';
+import postgres from '@/assets/icons/postgres.svg';
+import react from '@/assets/icons/react.webp';
+import me from '@/assets/me.webp';
+import carLogo from '@/assets/projects/car_logo.webp';
+import soccerLogo from '@/assets/projects/logo_soccer.svg';
+import { clsx, type ClassValue } from "clsx";
 import { motion, MotionValue } from "framer-motion";
+import { type StaticImageData } from "next/image";
+import React, { ComponentPropsWithoutRef } from "react";
+import { siGithub, siInstagram, SimpleIcon } from 'simple-icons';
+import { twMerge } from "tailwind-merge";
 
-import deadairLogo from '@/assets/projects/deadair.webp'
-import yeezitaliaLogo from '@/assets/projects/yeezylogo.webp'
-import gentechLogo from '@/assets/projects/gentech.webp'
-import christianCalzoleriaLogo from '@/assets/projects/christianCalzoleria.webp'
-import oasiLogo from '@/assets/projects/oasi3.webp'
-import innamorataLogo from '@/assets/projects/innamorata.webp'
-import playvoltLogo from '@/assets/projects/playvolt.webp'
-import yeezyglobeLogo from '@/assets/projects/yzyglobe.webp'
-import marsicandoLogo from '@/assets/projects/marsicando.webp'
+import christianCalzoleriaLogo from '@/assets/projects/christianCalzoleria.webp';
+import deadairLogo from '@/assets/projects/deadair.webp';
+import gentechLogo from '@/assets/projects/gentech.webp';
+import innamorataLogo from '@/assets/projects/innamorata.webp';
+import marsicandoLogo from '@/assets/projects/marsicando.webp';
+import oasiLogo from '@/assets/projects/oasi3.webp';
+import playvoltLogo from '@/assets/projects/playvolt.webp';
+import sollevareGhisaLogo from '@/assets/projects/sollevareGhisa.webp';
+import solutioLogo from '@/assets/projects/solutio.webp';
+import yeezitaliaLogo from '@/assets/projects/yeezylogo.webp';
+import yeezyglobeLogo from '@/assets/projects/yzyglobe.webp';
 
+import affinityLogo from '@/assets/icons/affinity.svg';
+import illustratorLogo from '@/assets/icons/illustrator.svg';
+import photoshopLogo from '@/assets/icons/photoshop.svg';
 
 /* utils functions */
 export function cn(...inputs: ClassValue[]) {
@@ -308,12 +313,28 @@ export const projectProps = [
 export const images: { src: StaticImageData | string; alt: string }[] = [
   { src: yeezitaliaLogo, alt: "Logo yeezitalia" },
   { src: gentechLogo, alt: "Logo recensioni gadget tech" },
-  { src: marsicandoLogo, alt: "Logo mercatini Natale" },
-  { src: deadairLogo, alt: "Progetto gruppo rap Deadair" },
-  { src: playvoltLogo, alt: "Logo catalogo videogames" },
-  { src: yeezyglobeLogo, alt: "Logo yzyglobe" },
-  { src: christianCalzoleriaLogo, alt: "Progetto christian calzoleria" },
   { src: oasiLogo, alt: "Logo spa" },
+  { src: marsicandoLogo, alt: "Logo mercatini Natale" },
+  { src: playvoltLogo, alt: "Logo catalogo videogames" },
+  { src: christianCalzoleriaLogo, alt: "Progetto christian calzoleria" },
+  { src: yeezyglobeLogo, alt: "Logo yzyglobe" },
+  { src: deadairLogo, alt: "Progetto gruppo rap Deadair" },
   { src: innamorataLogo, alt: "Logo gelato italiano" },
+  { src: sollevareGhisaLogo, alt: "Logo pagina instagram meme palestra" },
+  { src: solutioLogo, alt: "Logo soluzioni debiti" },
 ]
 /* images utils */
+
+/* animated list utils */
+export interface Item {
+  name: string
+  description: string
+  icon: string | StaticImageData
+}
+
+export const notifications = [
+  { id: "ai", name: "Adobe Illustrator", description: "Buona padronanza dei file vettoriali", icon: illustratorLogo},
+  { id: "ps", name: "Adobe PhotoShop", description: "Buona padronanza per fotomontaggio", icon: photoshopLogo},
+  { id: "affinity", name: "Affinity designer", description: "Programma che unisce le funzioni di illustrator e di photoshop", icon: affinityLogo}
+]
+/* animated list utils */
